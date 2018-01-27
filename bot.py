@@ -23,7 +23,7 @@ def handleInput(bot, update):
     predicateFn = LogicHandler.stringToFn(Parser.textToLogic(msgText))
     params = Parser.paramsGetter(msgText)
     res = LogicHandler.getTable(predicateFn, params)
-    bot.send_message(chat_id=update.message.chat_id, text = "```" +res+"```",
+    bot.send_message(chat_id=update.message.chat_id, text = "```" + res + "```",
                     parse_mode="Markdown")
 
 # def handleComparison(bot, update):
