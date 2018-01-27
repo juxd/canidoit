@@ -2,7 +2,7 @@ import telegram
 import config
 import logging
 from telegram.ext import Updater, CommandHandler
-import LogicHandler, Parser, error
+import LogicHandler, Parser, Error
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -15,9 +15,9 @@ def start(bot, update):
   bot.send_message(chat_id=update.message.chat_id, text='HI')
 
 def handleInput(bot, update):
-  msgText = update.message.text.replace("/parsethis", "")
-  if !(error.error(msgText)):
-     bot.send_message(chat_id=update.message.chat_id, text = "Error in Notation! Tray Again!",
+  msgText = update.message.text.replace("/parsethis ", "")
+  if (Error.error(msgText)):
+     bot.send_message(chat_id=update.message.chat_id, text = "Error in Notation! Try Again!",
                     parse_mode="Markdown")
   else:
     predicateFn = LogicHandler.stringToFn(Parser.textToLogic(msgText))
