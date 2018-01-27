@@ -16,10 +16,14 @@ def start(bot, update):
 
 def handleInput(bot, update):
   msgText = update.message.text.replace("/parsethis", "")
-  predicateFn = LogicHandler.stringToFn(msgText)
-  params = Parser.paramsGetter(msgText)
-  res = LogicHandler.getTable(predicateFn, params)
-  bot.send_message(chat_id=update.message.chat_id, text = "```" +res+"```",
+  if !Error.error(msgText):
+     bot.send_message(chat_id=update.message.chat_id, text = "Error in Notation! Tray Again!",
+                    parse_mode="Markdown")
+  else:
+    predicateFn = LogicHandler.stringToFn(Parser.textToLogic(msgText))
+    params = Parser.paramsGetter(msgText)
+    res = LogicHandler.getTable(predicateFn, params)
+    bot.send_message(chat_id=update.message.chat_id, text = "```" +res+"```",
                     parse_mode="Markdown")
 
 startHandler = CommandHandler('start', start)

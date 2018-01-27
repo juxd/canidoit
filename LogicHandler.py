@@ -3,7 +3,7 @@ import Parser
 
 def stringToFn(text):
   def resultFn(params):
-    return eval(Parser.textToLogic(text))
+    return eval(text)
   return resultFn
 
 def getTable(predicateFn, params):
