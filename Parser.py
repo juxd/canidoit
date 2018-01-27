@@ -1,7 +1,6 @@
 
 # text should be a function that takes in an array of booleans and returns a boolean
 def textToLogic(text):
-  text = text.replace("/parsethis", "")
   print(text)
   text = text.lower()
   textAsChars = list(text)
