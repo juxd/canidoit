@@ -15,10 +15,12 @@ def start(bot, update):
   bot.send_message(chat_id=update.message.chat_id, text='HI')
 
 def handleInput(bot, update):
-  predicateFn = LogicHandler.stringToFn(update.message.text)
-  params = Parser.paramsGetter(update.message.text)
+  msgText = update.message.text.replace("/parsethis", "")
+  predicateFn = LogicHandler.stringToFn(msgText)
+  params = Parser.paramsGetter(msgText)
   res = LogicHandler.getTable(predicateFn, params)
-  bot.send_message(chat_id=update.message.chat_id, text = "```" +res+"```")
+  bot.send_message(chat_id=update.message.chat_id, text = "```" +res+"```",
+                    parse_mode="Markdown")
 
 startHandler = CommandHandler('start', start)
 inputHandler = CommandHandler('parsethis', handleInput)
