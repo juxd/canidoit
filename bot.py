@@ -12,7 +12,7 @@ dispatcher = updater.dispatcher
 handleLimit = 3
 
 def start(bot, update):
-  bot.send_message(chat_id=update.message.chat_id, text='HI')
+  bot.send_message(chat_id=update.message.chat_id, text='Hi! /help if you need more instructions')
 
 def handleInput(bot, update):
   msgText = update.message.text.replace("/parsethis ", "")
@@ -23,20 +23,16 @@ def handleInput(bot, update):
     predicateFn = LogicHandler.stringToFn(Parser.textToLogic(msgText))
     params = Parser.paramsGetter(msgText)
     res = LogicHandler.getTable(predicateFn, params)
-    bot.send_message(chat_id=update.message.chat_id, text = "```" +res+"```",
+    bot.send_message(chat_id=update.message.chat_id, text ="```"+res+"```",
                     parse_mode="Markdown")
 
-# def handleComparison(bot, update):
-#   sentMsg = bot.send_msg(chat_id=update.message.chat_id, text="Reply me the two predicates to compare!")
-#   toCompare = []
-#   def getStmts(bot, update):
-#     if (update.message.reply_to_message == sentMsg):
-#       toCompare = 
-#   dispatcher.add_handler(
-
+def helpInput(bot, update):
+  bot.send_message(chat_id=update.message.chat_id, text='Welcome to CS1231! I am James and can only process 4 variables - p, q, r and s. Watch out for your notation too! After typing in the command /parsethis, type the notation you want to convert!')
 
 startHandler = CommandHandler('start', start)
 inputHandler = CommandHandler('parsethis', handleInput)
+helpHandler = CommandHandler('help', helpInput )
+dispatcher.add_handler(helpHandler)
 dispatcher.add_handler(startHandler)
 dispatcher.add_handler(inputHandler)
 updater.start_polling()
