@@ -1,16 +1,14 @@
-def textToLogic(text):
-  print(text)
-  text = text.replace("p", "params\[p\]")
-  text = text.replace("q", "params\[q\]")
-  text = text.replace("~", " not ")
-  text = text.replace("^", " and ")
-  text = text.replace("v", " or ")
-  print(text)
-  return text;
+import PrintLogic
+import Parser
 
-def StringToFn(text):
-  def ResultFn(params):
-    return eval(text)
-  return ResultFn
+def stringToFn(text):
+  def resultFn(params):
+    return eval(Parser.textToLogic(text))
+  return resultFn
+
+def getTable(predicateFn, params):
+  table = PrintLogic.generateHead(params)
+  table += PrintLogic.generateBody(predicateFn, len(params))
+  return table
 
 

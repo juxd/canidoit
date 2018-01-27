@@ -12,11 +12,11 @@ def printLine(params, predicateFn):
   result += "  " + singleChar(predicateFn(params)) + "    |\n"
   return result
 
-# this function prints header for the table
-def generateHead(noOfParams):
+# this function takes in an array of parameters and prints header for the table
+def generateHead(params):
   result = "| "
-  for i in range(0, noOfParams):
-    result += chr(112 + i) + " | "
+  for i in params:
+    result += i + " | "
   result+= "result | \n"
   result+= "=======================\n"
   return result
