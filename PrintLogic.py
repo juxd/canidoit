@@ -46,3 +46,34 @@ def generateBody(predicateFn, noOfParams):
    
   result += makeRows(noOfParams)
   return result
+
+def compareBody(predicateFn1, predicateFn2, noOfParams):
+  params = [True] * noOfParams
+  badParams = []
+  result = ""
+  def getBadParams(countLeft):
+    if countLeft == 0:
+      if predicateFn1(params) != predicateFn2(params):
+        badParams.append(params.copy())
+    else:
+      params[noOfParams - countLeft] = True
+      getBadParams(countLeft - 1)
+      params[noOfParams - countLeft] = False
+      getBadParams(countLeft - 1)
+
+  getBadParams(noOfParams)
+  if len(badParams) == 0:
+    result += "They are logically equivalent!"
+    return result
+  else:
+    result += str(len(badParams)) + " mismatches have been found: \n ```"
+
+    for p in badParams:
+      print(p)
+      result += "For Predicate 1,    "
+      result += printLine(p, predicateFn1)
+      result += "But for Predicate 2,"
+      result += printLine(p, predicateFn2)
+      result += "\n"
+    result += "```"
+    return result
